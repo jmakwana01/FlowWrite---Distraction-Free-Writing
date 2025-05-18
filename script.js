@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // State
     let timer;
-    let remainingTime = 10; // 15 minutes in seconds
+    let remainingTime = 15*60; // 15 minutes in seconds
     let isTimerRunning = false;
     let isFullscreen = false;
 
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Reset UI
             writingSpace.value = '';
-            remainingTime = 1 * 60;
+            remainingTime = 15 * 60;
             updateTimerDisplay();
             
             // Reset background to default
