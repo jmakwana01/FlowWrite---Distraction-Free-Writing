@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // State
     let timer;
-    let remainingTime = 15 * 60; // 15 minutes in seconds
+    let remainingTime = 10; // 15 minutes in seconds
     let isTimerRunning = false;
     let isFullscreen = false;
 
@@ -58,6 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fullscreen toggle
         fullscreenBtn.addEventListener('click', toggleFullscreen);
         document.addEventListener('fullscreenchange', handleFullscreenChange);
+        
+        // Reset button
+        const resetButton = document.getElementById('resetButton');
+        if (resetButton) {
+            resetButton.addEventListener('click', resetPage);
+        }
         
         // Keyboard shortcuts
         document.addEventListener('keydown', handleKeyDown);
@@ -104,6 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function completeSession() {
         clearInterval(timer);
         isTimerRunning = false;
+        // Show time's up alert
+        alert("Time's up! Take a moment to breathe and reflect on your writing.");
         showMeditationPrompt();
         saveWriting();
     }
@@ -301,26 +309,58 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
         
         // Reset timer and UI
-        remainingTime = 15 * 60;
+        remainingTime = 1 * 60; // Reset to 15 minutes
         updateTimerDisplay();
         writingSpace.value = '';
         startButton.innerHTML = '<i class="fas fa-play"></i>';
         startButton.setAttribute('title', 'Start Timer');
+        
+        // Clear local storage if reset is requested
+        if (confirm('Start a new session? This will clear your current writing.')) {
+            localStorage.removeItem('writing');
+            writingSpace.value = '';
+        }
         
         // Focus writing space after a short delay
         setTimeout(() => {
             writingSpace.focus();
         }, 100);
     }
+    
+    // Add page reset functionality
+    function resetPage() {
+        if (confirm('Are you sure you want to reset everything? This will clear all your writing and settings.')) {
+            // Clear all local storage
+            localStorage.clear();
+            
+            // Reset UI
+            writingSpace.value = '';
+            remainingTime = 1 * 60;
+            updateTimerDisplay();
+            
+            // Reset background to default
+            backgroundImageElement.style.backgroundImage = '';
+            backgroundOverlay.style.background = 'linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(20, 20, 30, 0.7) 100%)';
+            
+            // Reset timer button
+            startButton.innerHTML = '<i class="fas fa-play"></i>';
+            startButton.setAttribute('title', 'Start Timer');
+            
+            // Focus writing area
+            writingSpace.focus();
+            
+            alert('All settings have been reset to default.');
+        }
+    }
 
-    // Data persistence
+    // Save writing to localStorage
     function saveWriting() {
         localStorage.setItem('writing', writingSpace.value);
     }
 
-    // Keyboard shortcuts
+    // Handle keyboard shortcuts
     function handleKeyDown(e) {
-        // Toggle timer with space (when not typing in textarea)
+        // Toggle timer with Space (when not typing in the textarea)
         if (e.code === 'Space' && e.target !== writingSpace) {
             e.preventDefault();
             toggleTimer();
@@ -330,6 +370,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.code === 'F11') {
             e.preventDefault();
             toggleFullscreen();
+        }
+        
+        // Start new session with Escape
+        if (e.code === 'Escape' && meditationPrompt.classList.contains('visible')) {
+            startNewSession();
         }
     }
 
