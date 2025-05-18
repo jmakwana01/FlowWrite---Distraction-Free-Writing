@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowWrite - Distraction-Free Writing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="background-image"></div>
+        <div class="background-overlay"></div>
+        
+        <div class="top-bar">
+            <div class="left-controls">
+                <button id="startTimer" class="icon-button" title="Start Timer">
+                    <i class="fas fa-play"></i>
+                </button>
+                <div id="timer" class="timer">15:00</div>
+            </div>
+            <div class="right-controls">
+                <label for="backgroundImage" class="icon-button" title="Change Background">
+                    <i class="fas fa-image"></i>
+                    <input type="file" id="backgroundImage" accept="image/*" style="display: none;">
+                </label>
+                <button id="fullscreenBtn" class="icon-button" title="Toggle Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="writing-container">
+            <div class="writing-area">
+                <textarea id="writingSpace" placeholder="Start writing here...
+
+• No distractions, just your thoughts
+• Timer will automatically save your progress
+• Take a deep breath when the timer ends" spellcheck="false"></textarea>
+            </div>
+        </div>
+
+        <div id="meditationPrompt" class="meditation-prompt hidden">
+            <div class="prompt-content">
+                <div class="meditation-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h2>Amazing Work! 🌟</h2>
+                <div class="affirmation-message">
+                    <p>You've taken a beautiful step forward. The sun will rise again tomorrow, and so will you.</p>
+                    <p class="affirmation">"I am capable of amazing things. Every word I write brings me closer to my goals."</p>
+                </div>
+                <div class="breathing-guide">
+                    <div class="breath-circle"></div>
+                    <p>Breathe in... and out...</p>
+                </div>
+                <button id="startNewSession" class="btn">Begin Anew</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+    <script src="script.js"></script>
+</body>
+</html>
